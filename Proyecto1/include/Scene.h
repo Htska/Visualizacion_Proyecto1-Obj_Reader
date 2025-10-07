@@ -6,6 +6,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include <vector>
 
 #include "WindowGL.h"
 #include "ShaderProgram.h"
@@ -13,6 +14,7 @@
 #include "Model.h"
 #include "models/Cube.h"
 #include "models/ImportedModel.h"
+#include "models/Axes.h"
 
 /**
  * @class Scene
@@ -24,7 +26,8 @@ private:
 
     WindowGL* m_window; 
     ShaderProgram*  m_shaderProgram; // This could be a std::vector of shader programs 
-    Model* m_model; // This could be a std::vector of Models 
+     // This could be a std::vector of Models 
+    std::vector<Model*> m_models;
 
     glm::mat4 m_view;
     glm::mat4 m_projection; 

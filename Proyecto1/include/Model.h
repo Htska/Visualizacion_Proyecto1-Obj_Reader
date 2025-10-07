@@ -57,7 +57,7 @@ public:
      * @param view Matriz de vista 
      * @param projection Matriz de proyeccion 
      */
-    virtual void renderModel(const glm::mat4& view, const glm::mat4& projection) = 0;
+    virtual void renderModel(const glm::mat4& view, const glm::mat4& projection, GLenum mode) = 0;
 
     /**
      * @brief Aplica transformaciones o animaciones 
@@ -70,6 +70,7 @@ public:
      */
     virtual void finish() = 0;
 
+    virtual void printInfo() = 0;
 };
 
 #endif

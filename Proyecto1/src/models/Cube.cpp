@@ -38,7 +38,7 @@ void Cube::init(){
 }
 
 
-void Cube::renderModel(const glm::mat4& view, const glm::mat4& projection){
+void Cube::renderModel(const glm::mat4& view, const glm::mat4& projection,GLenum mode){
     
     m_shaderProgram->use();
 
@@ -47,7 +47,7 @@ void Cube::renderModel(const glm::mat4& view, const glm::mat4& projection){
     m_shaderProgram->setMat4x4("projection", projection);
 
     glBindVertexArray(VAO);
-    glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+    glDrawElements(mode, 36, GL_UNSIGNED_INT, 0);
 }
 
 void Cube::updateModel(float deltaTime ){
@@ -60,4 +60,8 @@ void Cube::finish(){
     /**
      * To implement 
      */
+}
+
+void Cube::printInfo(){
+    
 }

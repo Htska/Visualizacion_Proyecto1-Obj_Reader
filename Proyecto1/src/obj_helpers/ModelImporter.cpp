@@ -90,10 +90,33 @@ void ModelImporter::parseOBJ(const char *filePath) {
             }
         }
     }
+    max.push_back(vertVals[0]);
+    max.push_back(vertVals[1]);
+    max.push_back(vertVals[2]);
+    min.push_back(vertVals[0]);
+    min.push_back(vertVals[1]);
+    min.push_back(vertVals[2]);
+    for (int i = 0; i<(int)vertVals.size()-1;i+=3){
+        if (vertVals[i] > max[0])
+            max[0] = vertVals[i];
+        if (vertVals[i+1] > max[1])
+            max[1] = vertVals[i+1];
+        if (vertVals[i+2] > max[2])
+            max[2] = vertVals[i+2];
+        if (vertVals[i] < min[0])
+            min[0] = vertVals[i];
+        if (vertVals[i+1] < min[1])
+            min[1] = vertVals[i+1];
+        if (vertVals[i+2] < min[2])
+            min[2] = vertVals[i+2];  
+    }
 }
 
 // getters
 int ModelImporter::getNumVertices() { return (triangleVerts.size() / 3); }
+int ModelImporter::getRealVertices() {return (vertVals.size()/3);}
 std::vector<float> ModelImporter::getVertices() { return triangleVerts; }
 std::vector<float> ModelImporter::getTextureCoordinates() { return textureCoords; }
 std::vector<float> ModelImporter::getNormals() { return normals; }
+std::vector<float> ModelImporter::getMax() {return max;}
+std::vector<float> ModelImporter::getMin() {return min;}

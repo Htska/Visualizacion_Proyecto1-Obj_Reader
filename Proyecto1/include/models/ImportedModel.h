@@ -14,6 +14,7 @@ class ImportedModel: public Model{
 private:
     const char * m_filePath; 
     int numVertices; 
+    int realVertices;
     // std::vector<glm::vec3> vertices; 
     // std::vector<glm::vec2> texCoords; 
     // std::vector<glm::vec3> normalVecs;
@@ -23,6 +24,8 @@ private:
     std::vector<float> m_vertices;
     std::vector<float> m_textCoords;
     std::vector<float> m_normalVecs;
+    std::vector<float> max;
+    std::vector<float> min;
 public: 
 
     ImportedModel(ShaderProgram* program, const char *filePath) 
@@ -40,12 +43,13 @@ public:
 
     void init() override;
 
-    void renderModel(const glm::mat4& view, const glm::mat4& projection) override;
+    void renderModel(const glm::mat4& view, const glm::mat4& projection,GLenum mode) override;
 
     void updateModel(float deltaTime) override;
 
     void finish() override;
 
+    void printInfo() override;
 };
 
 

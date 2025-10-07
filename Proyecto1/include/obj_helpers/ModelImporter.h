@@ -18,14 +18,20 @@ private:
     std::vector<float> textureCoords; 
     std::vector<float> normals; 
 
+    // Valores para guardar los máximos y mínimos
+    std::vector<float> max;
+    std::vector<float> min;
 public: 
 
     ModelImporter();
     void parseOBJ(const char *filePath);
     int getNumVertices(); 
+    int getRealVertices();
     std::vector<float> getVertices(); 
     std::vector<float> getTextureCoordinates(); 
     std::vector<float> getNormals();
+    std::vector<float> getMax();
+    std::vector<float> getMin();
 };
 
 #endif

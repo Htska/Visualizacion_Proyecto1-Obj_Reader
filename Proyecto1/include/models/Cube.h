@@ -22,12 +22,13 @@ public:
 
     void init() override;
 
-    void renderModel(const glm::mat4& view, const glm::mat4& projection) override;
+    void renderModel(const glm::mat4& view, const glm::mat4& projection,GLenum mode) override;
 
     void updateModel(float deltaTime) override;
 
     void finish() override;
 
+    void printInfo() override;
 }; 
 
 #endif
