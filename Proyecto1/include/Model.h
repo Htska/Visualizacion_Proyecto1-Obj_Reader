@@ -17,8 +17,15 @@ class Model{
 
 protected:
 
+    /**
+     * @brief shader para el modelo
+     */
     ShaderProgram* m_shaderProgram;
     GLuint VAO, VBO, EBO; 
+
+    /**
+     * @brief matriz del modelo
+     */
     glm::mat4 m_model_mat;
     // float angle 
 
@@ -35,6 +42,9 @@ protected:
 
 public: 
 
+    /**
+     * @brief Constructor general para los modelos
+     */
     Model(ShaderProgram* program)
         : m_shaderProgram{program}
         , VAO(0)

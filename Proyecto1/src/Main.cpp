@@ -1,7 +1,9 @@
 #include "Scene.h"
 
 
-
+/**
+ * Función principal, se corre la escena
+ */
 int main(){
 
     Scene scene {};

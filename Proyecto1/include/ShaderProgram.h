@@ -80,6 +80,8 @@ public:
     void setVec3(const std::string& name, glm::vec3 vector) const;
 
     void setMat4x4(const std::string& name, const glm::mat4& value) const; 
+
+    void setFloat(const std::string& name, float value) const;
 };
 
 #endif

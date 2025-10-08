@@ -4,6 +4,9 @@
 #include <vector>
 #include <glm/glm.hpp>
 
+/**
+ * Clase auxiliar que se encarga de leer los archivos obj
+ */
 class ModelImporter{
 
 private: 

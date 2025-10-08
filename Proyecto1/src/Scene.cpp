@@ -4,15 +4,17 @@ void Scene::init(){
     //Inicializacion de ventana 
     m_window = new WindowGL();
     //Inicializacion de ProgramShader 
-    m_shaderProgram = new ShaderProgram("shaders/vertex_shader.glsl","shaders/frag_shader.glsl");
-    //Inicializacion del Modelo -> Cubo 
-    //m_model = new Cube(m_shaderProgram);
-    Model* axes = new Axes(m_shaderProgram);
-    Model* model1 = new ImportedModel(m_shaderProgram,"assets/obj/bunny.obj");
-    Model* model2 = new ImportedModel(m_shaderProgram,"assets/obj/Cube_Triangles.obj");
-    Model* model3 = new ImportedModel(m_shaderProgram,"assets/obj/dragon.obj");
-    Model* model4 = new ImportedModel(m_shaderProgram,"assets/obj/Happy_Buddha.obj");
-    Model* model5 = new ImportedModel(m_shaderProgram,"assets/obj/Teapot.obj");
+    ShaderProgram* m_shaderProgram = new ShaderProgram("shaders/vertex_shader.glsl","shaders/frag_shader.glsl");
+    ShaderProgram* m_shaderProgram2 = new ShaderProgram("shaders/vertex_shader2.glsl","shaders/frag_shader2.glsl");
+    m_shaderPrograms.push_back(m_shaderProgram);
+    m_shaderPrograms.push_back(m_shaderProgram2);
+    //Se inicializan todos los modelos a usar
+    Model* axes = new Axes(m_shaderPrograms[0]);
+    Model* model1 = new ImportedModel(m_shaderPrograms[1],"assets/obj/bunny.obj");
+    Model* model2 = new ImportedModel(m_shaderPrograms[1],"assets/obj/Cube_Triangles.obj");
+    Model* model3 = new ImportedModel(m_shaderPrograms[1],"assets/obj/dragon.obj");
+    Model* model4 = new ImportedModel(m_shaderPrograms[1],"assets/obj/Happy_Buddha.obj");
+    Model* model5 = new ImportedModel(m_shaderPrograms[1],"assets/obj/Teapot.obj");
     m_models.push_back(model1);
     m_models.push_back(model2);
     m_models.push_back(model3);
@@ -25,7 +27,7 @@ void Scene::init(){
     m_projection = glm::perspective(glm::radians(45.0f), m_window->getAspectRation(), 0.1f, 100.0f);
 }
 
-void Scene::render() const {
+void Scene::render()  {
 
     Model* m_model = m_models[0];
     m_model->printInfo();
@@ -36,12 +38,14 @@ void Scene::render() const {
     glEnable(GL_CULL_FACE);   // Habilitar culling de caras
     glCullFace(GL_BACK);      // Culling de caras traseras
     glFrontFace(GL_CCW);      // Las caras frontales son las que tienen vértices en sentido antihorario
+    glm::vec3 cameraPos = glm::vec3(2.0f,1.0f,2.0f);
 
     while(!glfwWindowShouldClose(m_window->getWindow())){
-
         // Compute time  
         if (glfwGetKey(m_window->getWindow(), GLFW_KEY_ESCAPE) == GLFW_PRESS)
             glfwSetWindowShouldClose(m_window->getWindow(), true);
+
+        // Segun la tecla, se visualiza un modelo u otro
         if (glfwGetKey(m_window->getWindow(), GLFW_KEY_0) == GLFW_PRESS){
             m_model = m_models[0];
             m_model->printInfo();
@@ -63,8 +67,10 @@ void Scene::render() const {
             m_model->printInfo();
         }
 
+        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+        // Segpun las teclas, se visualiza como puntos, linea o triangulos
         if (glfwGetKey(m_window->getWindow(), GLFW_KEY_T) == GLFW_PRESS){
             mode = GL_TRIANGLES;
         }
@@ -77,13 +83,36 @@ void Scene::render() const {
             mode = GL_LINES;
         }
 
+        // se dibujan los modelos
         m_model->renderModel(m_view, m_projection,mode);
         m_models[5]->renderModel(m_view, m_projection,GL_LINES);
         // update models 
         glfwSwapBuffers(m_window->getWindow());
         glfwPollEvents();
 
+        // Segun la tecla se realiza el movimiento de camara
+        if (glfwGetKey(m_window->getWindow(), GLFW_KEY_RIGHT) == GLFW_PRESS){
+            cameraPos = cameraPos + glm::vec3(0.05f,0.0f,0.0f);
+        }
+        if (glfwGetKey(m_window->getWindow(), GLFW_KEY_LEFT) == GLFW_PRESS){
+            cameraPos = cameraPos + glm::vec3(-0.05f,0.0f,0.0f);
+        }
 
+        if (glfwGetKey(m_window->getWindow(), GLFW_KEY_UP) == GLFW_PRESS){
+            cameraPos = cameraPos + glm::vec3(0.0f,0.0f,0.05f);
+        }
+
+        if (glfwGetKey(m_window->getWindow(), GLFW_KEY_DOWN) == GLFW_PRESS){
+            cameraPos = cameraPos + glm::vec3(0.0f,0.0f,-0.05f);
+        }
+
+        if (glfwGetKey(m_window->getWindow(), GLFW_KEY_R) == GLFW_PRESS){
+            cameraPos = glm::vec3(2.0f,1.0f,2.0f);
+        }
+
+        m_view =  glm::lookAt(cameraPos, glm::vec3(0.0f), glm::vec3(0.0,1.0,0.0));
+
+        // Rotaciones segun los ejes
         if (glfwGetKey(m_window->getWindow(), GLFW_KEY_X) == GLFW_PRESS){
             axis = 1.0f;
         }

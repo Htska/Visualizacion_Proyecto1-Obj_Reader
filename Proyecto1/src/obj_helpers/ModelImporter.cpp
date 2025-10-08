@@ -90,6 +90,8 @@ void ModelImporter::parseOBJ(const char *filePath) {
             }
         }
     }
+
+    // Se calcula los valores máximos y mínimos en cada coordenada
     max.push_back(vertVals[0]);
     max.push_back(vertVals[1]);
     max.push_back(vertVals[2]);

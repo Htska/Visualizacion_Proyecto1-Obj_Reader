@@ -12,7 +12,6 @@
 #include "ShaderProgram.h"
 
 #include "Model.h"
-#include "models/Cube.h"
 #include "models/ImportedModel.h"
 #include "models/Axes.h"
 
@@ -24,12 +23,29 @@ class Scene
 {
 private:
 
+    /**
+     * La ventana donde se crea la escena
+     */
     WindowGL* m_window; 
-    ShaderProgram*  m_shaderProgram; // This could be a std::vector of shader programs 
-     // This could be a std::vector of Models 
+
+    /**
+     * Vector que contiene los shaders para los diferentes modelos
+     */
+    std::vector<ShaderProgram*>  m_shaderPrograms;
+
+    /**
+     * Vector con los diferentes modelos
+     */
     std::vector<Model*> m_models;
 
+    /**
+     * Matriz de la vista
+     */
     glm::mat4 m_view;
+
+    /**
+     * Matriz de proyección
+     */
     glm::mat4 m_projection; 
 
     /**
@@ -45,13 +61,14 @@ public:
 
     ~Scene(){
         delete m_window;
-        delete m_shaderProgram;
+        for (ShaderProgram* sh:m_shaderPrograms)
+            delete sh;
     }
 
     /**
      * @brief Ciclo de renderizado general 
      */
-    void render() const; 
+    void render(); 
 
 };
 

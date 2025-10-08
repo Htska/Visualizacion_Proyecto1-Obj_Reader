@@ -10,17 +10,38 @@
 
 #define num_VBOs 3
 
+/**
+ * Clase que define un modelo leído de un archivo obj
+ */
 class ImportedModel: public Model{
 private:
-    const char * m_filePath; 
+
+    /**
+     * @brief El path del archivo obj
+     */
+    const char * m_filePath;
+    
+    /**
+     * @brief el número de vértices a pintar
+     */
     int numVertices; 
+
+    /**
+     * @brief el verdaero número de vértices
+     */
     int realVertices;
     // std::vector<glm::vec3> vertices; 
     // std::vector<glm::vec2> texCoords; 
     // std::vector<glm::vec3> normalVecs;
 
+    /**
+     * @brief arreglo que contiene los vboos
+     */
     GLuint m_VBO[num_VBOs];
 
+    /**
+     * Vectores para guardar la información del obj leído
+     */
     std::vector<float> m_vertices;
     std::vector<float> m_textCoords;
     std::vector<float> m_normalVecs;
@@ -28,6 +49,9 @@ private:
     std::vector<float> min;
 public: 
 
+    /**
+     * Constructor que recibe el shader y la dirección del path a leer
+     */
     ImportedModel(ShaderProgram* program, const char *filePath) 
         : Model(program)
         , m_filePath{filePath}
@@ -39,6 +63,10 @@ public:
 
     }
 
+    /**
+     * Funciones a implementar por heredar de model
+     */
+    
     void initGeometry() override;
 
     void init() override;

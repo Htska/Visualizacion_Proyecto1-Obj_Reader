@@ -1,9 +1,10 @@
 #include "models/ImportedModel.h"
 
 void ImportedModel::initGeometry(){
-    
+    // Se lee obj especificado
     ModelImporter modelImporter = ModelImporter();
     modelImporter.parseOBJ(m_filePath);
+    //Se obtiene la información del modelo
     numVertices=modelImporter.getNumVertices();
     realVertices = modelImporter.getRealVertices();
     std::vector<float> verts = modelImporter.getVertices();
@@ -15,12 +16,14 @@ void ImportedModel::initGeometry(){
         std::cout << v << "\n";
     for (float m : min)
         std::cout << m << "\n";*/
+    // Para centrar el modelo, se calcula un cubo que envuelva a todo el modelo y así poder trasladar y escalar adecuadamente
     glm::vec3 centro = glm::vec3((max[0]+min[0])*0.5f,(max[1]+min[1])*0.5f,(max[2]+min[2])*0.5f);
     glm::vec3 dimension = glm::vec3((max[0]-min[0]),(max[1]-min[1]),(max[2]-min[2]));
     float factor = 1.0f/(float)(std::max({dimension.x,dimension.y,dimension.z}));
     //std::cout << factor<< "\n";
     glm::mat4 escalamiento = glm::scale(glm::mat4(1.0f),glm::vec3(factor));
     //glm::mat4 traslacion = glm::translate(glm::mat4(1.0f),-centro);
+    // SE calcula la matriz del modelo
     m_model_mat = glm::translate(escalamiento,-centro);
 
     for(int i=0; i<numVertices;i++){
@@ -81,6 +84,9 @@ void ImportedModel::renderModel(const glm::mat4& view, const glm::mat4& projecti
     m_shaderProgram->setMat4x4("model", m_model_mat);
     m_shaderProgram->setMat4x4("view", view);
     m_shaderProgram->setMat4x4("projection", projection);
+    // Se le pasa al shader los valoers maximos y mínimos en altura
+    m_shaderProgram->setFloat("max",max[1]);
+    m_shaderProgram->setFloat("min",min[1]);
 
     glBindVertexArray(VAO); 
     // Esto tal vez debería ir en init (Profe)
@@ -94,6 +100,7 @@ void ImportedModel::renderModel(const glm::mat4& view, const glm::mat4& projecti
 
 }
 
+// Se hace la rotación segun indique la variable deltatime
 void ImportedModel::updateModel(float deltaTime){
     //m_model_mat = glm::scale(glm::mat4(1.0f), glm::vec3(0.75f));
     if (deltaTime == 0.0f)
