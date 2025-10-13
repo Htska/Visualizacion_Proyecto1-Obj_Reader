@@ -10,10 +10,15 @@ void Scene::init(){
     m_shaderPrograms.push_back(m_shaderProgram2);
     //Se inicializan todos los modelos a usar
     Model* axes = new Axes(m_shaderPrograms[0]);
+    std::cout << "Cargando Modelo 1\n";
     Model* model1 = new ImportedModel(m_shaderPrograms[1],"assets/obj/bunny.obj");
+    std::cout << "Cargando Modelo 2\n";
     Model* model2 = new ImportedModel(m_shaderPrograms[1],"assets/obj/Cube_Triangles.obj");
+    std::cout << "Cargando Modelo 3\n";
     Model* model3 = new ImportedModel(m_shaderPrograms[1],"assets/obj/dragon.obj");
+    std::cout << "Cargando Modelo 4\n";
     Model* model4 = new ImportedModel(m_shaderPrograms[1],"assets/obj/Happy_Buddha.obj");
+    std::cout << "Cargando Modelo 5\n";
     Model* model5 = new ImportedModel(m_shaderPrograms[1],"assets/obj/Teapot.obj");
     m_models.push_back(model1);
     m_models.push_back(model2);
