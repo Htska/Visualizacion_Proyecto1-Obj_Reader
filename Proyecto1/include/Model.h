@@ -30,6 +30,11 @@ protected:
     // float angle 
 
     /**
+     * @brief Booleano para deifinir la impresión
+     */
+    bool m_printed;
+
+    /**
      * @brief Inicializa vertices  
      */
     virtual void initGeometry() = 0; // Debe ser implementada por una derivada
@@ -51,6 +56,7 @@ public:
         , VBO(0)
         , EBO(0)
         , m_model_mat(1.0f)
+        , m_printed(false)
     {
 
     }
@@ -80,7 +86,16 @@ public:
      */
     virtual void finish() = 0;
 
+    /**
+     * @brief Función para imprimir información del modelo
+     */
     virtual void printInfo() = 0;
+
+    /**
+     * @brief Función para definir si ya imprimió la información
+     * @param printed el nuevo valor
+     */
+    void setPrinted(bool printed){m_printed=printed;}
 };
 
 #endif

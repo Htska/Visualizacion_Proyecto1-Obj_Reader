@@ -14,6 +14,10 @@
 #include "Model.h"
 #include "models/ImportedModel.h"
 #include "models/Axes.h"
+#include "models/Grid.h"
+#include "Function.h"
+#include "Exponential.h"
+#include "Trigonometric.h"
 
 /**
  * @class Scene

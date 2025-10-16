@@ -20,12 +20,20 @@ void Scene::init(){
     Model* model4 = new ImportedModel(m_shaderPrograms[1],"assets/obj/Happy_Buddha.obj");
     std::cout << "Cargando Modelo 5\n";
     Model* model5 = new ImportedModel(m_shaderPrograms[1],"assets/obj/Teapot.obj");
+    std::cout << "Cargando función 1\n";
+    Function* f = new Trigonometric();
+    Model* model6 = new Grid(m_shaderPrograms[1],100,100,f);
+    Function* g = new Exponential();
+    std::cout << "Cargando función 2\n";
+    Model* model7 = new Grid(m_shaderPrograms[1],100,100,g);
     m_models.push_back(model1);
     m_models.push_back(model2);
     m_models.push_back(model3);
     m_models.push_back(model4);
     m_models.push_back(model5);
     m_models.push_back(axes);
+    m_models.push_back(model6);
+    m_models.push_back(model7);
     //Matriz de vista View Matrix
     m_view =  glm::lookAt(glm::vec3(2.0f,1.0f,2.0f), glm::vec3(0.0f), glm::vec3(0.0,1.0,0.0));
     //Matriz de projeccion
@@ -54,22 +62,80 @@ void Scene::render()  {
         if (glfwGetKey(m_window->getWindow(), GLFW_KEY_0) == GLFW_PRESS){
             m_model = m_models[0];
             m_model->printInfo();
+            m_model->setPrinted(true);
+            m_models[1]->setPrinted(false);
+            m_models[2]->setPrinted(false);
+            m_models[3]->setPrinted(false);
+            m_models[4]->setPrinted(false);
+            m_models[6]->setPrinted(false);
+            m_models[7]->setPrinted(false);
         }
         if (glfwGetKey(m_window->getWindow(), GLFW_KEY_1) == GLFW_PRESS){
             m_model = m_models[1];
             m_model->printInfo();
+            m_model->setPrinted(true);
+            m_models[0]->setPrinted(false);
+            m_models[2]->setPrinted(false);
+            m_models[3]->setPrinted(false);
+            m_models[4]->setPrinted(false);
+            m_models[6]->setPrinted(false);
+            m_models[7]->setPrinted(false);
         }
         if (glfwGetKey(m_window->getWindow(), GLFW_KEY_2) == GLFW_PRESS){
             m_model = m_models[2];
             m_model->printInfo();
+            m_model->setPrinted(true);
+            m_models[0]->setPrinted(false);
+            m_models[1]->setPrinted(false);
+            m_models[3]->setPrinted(false);
+            m_models[4]->setPrinted(false);
+            m_models[6]->setPrinted(false);
+            m_models[7]->setPrinted(false);
         }
         if (glfwGetKey(m_window->getWindow(), GLFW_KEY_3) == GLFW_PRESS){
             m_model = m_models[3];
             m_model->printInfo();
+            m_model->setPrinted(true);
+            m_models[0]->setPrinted(false);
+            m_models[1]->setPrinted(false);
+            m_models[2]->setPrinted(false);
+            m_models[4]->setPrinted(false);
+            m_models[6]->setPrinted(false);
+            m_models[7]->setPrinted(false);
         }
         if (glfwGetKey(m_window->getWindow(), GLFW_KEY_4) == GLFW_PRESS){
             m_model = m_models[4];
             m_model->printInfo();
+            m_model->setPrinted(true);
+            m_models[0]->setPrinted(false);
+            m_models[1]->setPrinted(false);
+            m_models[2]->setPrinted(false);
+            m_models[3]->setPrinted(false);
+            m_models[6]->setPrinted(false);
+            m_models[7]->setPrinted(false);
+        }
+        if (glfwGetKey(m_window->getWindow(), GLFW_KEY_F) == GLFW_PRESS){
+            m_model = m_models[6];
+            m_model->printInfo();
+            m_model->setPrinted(true);
+            m_models[0]->setPrinted(false);
+            m_models[1]->setPrinted(false);
+            m_models[2]->setPrinted(false);
+            m_models[3]->setPrinted(false);
+            m_models[4]->setPrinted(false);
+            m_models[7]->setPrinted(false);
+        }
+
+        if (glfwGetKey(m_window->getWindow(), GLFW_KEY_G) == GLFW_PRESS){
+            m_model = m_models[7];
+            m_model->printInfo();
+            m_model->setPrinted(true);
+            m_models[0]->setPrinted(false);
+            m_models[1]->setPrinted(false);
+            m_models[2]->setPrinted(false);
+            m_models[3]->setPrinted(false);
+            m_models[4]->setPrinted(false);
+            m_models[6]->setPrinted(false);
         }
 
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);

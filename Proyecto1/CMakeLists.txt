@@ -28,6 +28,9 @@ add_executable(${PROJECT_NAME} ${PROJECT_SOURCE_DIR}/src/Main.cpp
                                ${PROJECT_SOURCE_DIR}/src/WindowGL.cpp
                                ${PROJECT_SOURCE_DIR}/src/models/ImportedModel.cpp
                                ${PROJECT_SOURCE_DIR}/src/models/Axes.cpp
+                               ${PROJECT_SOURCE_DIR}/src/models/Grid.cpp
+                               ${PROJECT_SOURCE_DIR}/src/Exponential.cpp
+                               ${PROJECT_SOURCE_DIR}/src/Trigonometric.cpp
                                ${PROJECT_SOURCE_DIR}/src/obj_helpers/ModelImporter.cpp
                                )
 

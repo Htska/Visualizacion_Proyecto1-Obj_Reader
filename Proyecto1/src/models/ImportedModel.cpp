@@ -118,6 +118,8 @@ void ImportedModel::finish(){
 }
 
 void ImportedModel::printInfo(){
+    if (m_printed)
+        return;
     std::cout << "Nombre del archivo: " << m_filePath << "\n";
     std::cout << "Número de vértices: " << realVertices << "\n";
     std::cout << "Valores Máximos- x: " << max[0] << " y: " << max[1] << " z: " << max[2] <<"\n";

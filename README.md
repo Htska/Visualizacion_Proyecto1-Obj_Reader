@@ -42,3 +42,14 @@ Finalmente, es posible controlar la cámara mediante las flechas del teclado. La
 ![alt text](media/camara.gif)
 
 El mapa de color utilizado muestra los puntos más bajos de color azul, los medios de amarillo y los más altos de rojo. 
+
+## Punto Extra:
+Se agregaron dos mallas que representan las siguientes funciones:
+
+La primera función es $f(x,z)=cos(x)+sin(z)$. La cual se muestra al pulsar la tecla F.
+
+![alt text](media/funcion1.png)
+
+La segunda función es $g(x,z)=e^{x^2+z^2}$. Se activa al pulsar la tecla G.
+
+![alt text](media/funcion2.png)
