@@ -50,6 +50,6 @@ La primera función es $f(x,z)=cos(x)+sin(z)$. La cual se muestra al pulsar la t
 
 ![alt text](media/funcion1.png)
 
-La segunda función es $g(x,z)=e^{x^2+z^2}$. Se activa al pulsar la tecla G.
+La segunda función es $g(x,z)=e^{-(x^2+z^2)}$. Se activa al pulsar la tecla G.
 
 ![alt text](media/funcion2.png)

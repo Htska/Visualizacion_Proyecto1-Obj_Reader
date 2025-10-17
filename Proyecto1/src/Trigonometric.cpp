@@ -1,7 +1,7 @@
 #include "Trigonometric.h"
 #include <iostream>
 
-float Trigonometric::f(int x, int z){
+float Trigonometric::f(float x, float z){
     float y = cos(x)+sin(z);
     return y;
 }

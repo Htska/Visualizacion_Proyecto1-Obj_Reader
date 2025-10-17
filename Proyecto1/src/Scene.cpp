@@ -22,10 +22,10 @@ void Scene::init(){
     Model* model5 = new ImportedModel(m_shaderPrograms[1],"assets/obj/Teapot.obj");
     std::cout << "Cargando función 1\n";
     Function* f = new Trigonometric();
-    Model* model6 = new Grid(m_shaderPrograms[1],100,100,f);
+    Model* model6 = new Grid(m_shaderPrograms[1],100,100,f,1.0f,0.1f);
     Function* g = new Exponential();
     std::cout << "Cargando función 2\n";
-    Model* model7 = new Grid(m_shaderPrograms[1],100,100,g);
+    Model* model7 = new Grid(m_shaderPrograms[1],100,100,g,50.0f,0.015f);
     m_models.push_back(model1);
     m_models.push_back(model2);
     m_models.push_back(model3);
@@ -58,7 +58,7 @@ void Scene::render()  {
         if (glfwGetKey(m_window->getWindow(), GLFW_KEY_ESCAPE) == GLFW_PRESS)
             glfwSetWindowShouldClose(m_window->getWindow(), true);
 
-        // Segun la tecla, se visualiza un modelo u otro
+        // Segun la tecla, se visualiza un modelo u otro y se restablecen sus valores para imprimir
         if (glfwGetKey(m_window->getWindow(), GLFW_KEY_0) == GLFW_PRESS){
             m_model = m_models[0];
             m_model->printInfo();

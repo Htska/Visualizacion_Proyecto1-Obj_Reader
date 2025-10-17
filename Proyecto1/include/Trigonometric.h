@@ -6,7 +6,7 @@
 class Trigonometric:public Function
 {
 public:
-    float f(int x, int z) override;
+    float f(float x, float z) override;
     
     void print() override;
 };

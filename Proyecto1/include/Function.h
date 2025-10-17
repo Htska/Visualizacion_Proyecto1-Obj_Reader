@@ -14,7 +14,7 @@ public:
      * @param z valor en z
      * @returns el valor evaluado
      */
-    virtual float f(int x, int z) = 0;
+    virtual float f(float x, float z) = 0;
 
     /**
      * @brief Función para imprimir f(x)

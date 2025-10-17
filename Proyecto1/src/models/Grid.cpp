@@ -20,20 +20,26 @@ void Grid::Vertex::InitVertex(int x, int y, int z){
  void Grid::InitVertices(std::vector<Vertex>& Vertices) {
      int Index{0};
 
-     // Escala base: el radio controla tanto el ancho como la altura de la montañ
+     // Se inician los valores máximos
      m_min = std::numeric_limits<float>::max();
      m_max = std::numeric_limits<float>::min();
-     for (int z = -m_depth / 2; z < m_depth / 2; z++) {
-         for (int x = -m_width / 2; x < m_width / 2; x++) {
-             
-             // Función de altura (Gaussiana, más suave que una parábola)
-            float y = m_f->f(x,z);
+     for (int z = -m_depth / 2; z < m_depth /2; z++) {
+         for (int x = -m_width /2; x < m_width /2; x++) {
+            // Se calculan las coordenadas escalads
+            float new_x = x/m_scale;
+            float new_z = z/m_scale;
+            // El valor de la función
+            float y = m_f->f(new_x,new_z);
+            // Se escala el valor de y
+            if (m_scale >2.0f)
+                y = y*(m_scale/2);
             if (y>m_max)
                 m_max=y;
             if (y<m_min)
                 m_min = y;
-             Vertices[Index].InitVertex(x, y, z);
-             Index++;
+            //std::cout << "x: "<<new_x <<" y: "<<y<< " z: "<< new_z<<"\n";
+            Vertices[Index].InitVertex(x, y,z);
+            Index++;
          }
      }
 
@@ -93,7 +99,7 @@ void Grid::initGeometry(){
     // La escala se precalcula para calcularla en el update 
     m_model_mat = glm::mat4(1.0f);
     m_model_mat = glm::translate(m_model_mat, glm::vec3(0.0f));
-    m_model_mat = glm::scale(m_model_mat, glm::vec3(0.1f)); // SOLO una vez
+    m_model_mat = glm::scale(m_model_mat, glm::vec3(m_model_scale)); // SOLO una vez
 }
 
 void Grid::init(){
@@ -160,8 +166,17 @@ void Grid::printInfo(){
     if (m_printed)
         return;
     m_f->print();
-    std::cout << "Su dominio es: "<< m_width << "X" << m_depth << "\n";
-    std::cout << "El mínimo es: " << m_min <<"\n";
-    std::cout << "El máximo es: " << m_max <<"\n";
-    std::cout << "La función está escalada 1:10\n";
+    std::cout << "Su dominio es: [" << -m_width/(2*m_scale) <<"," << m_width/(2*m_scale) << "] X [" << -m_depth/(2*m_scale) << "," << m_depth/(2*m_scale)<< "]\n";
+    float min = m_min;
+    float max = m_max;
+    // Se regresa a los mínimos originales
+    if (m_scale>2.0f){
+        min = (2*m_min)/(m_scale);
+        max = (2*m_max)/(m_scale);
+    }
+    std::cout << "El mínimo es: " << min <<"\n";
+    std::cout << "El máximo es: " << max <<"\n";
+    float new_scale = m_scale<2.0f? m_scale:m_scale/2;
+    std::cout << "Las coordenadas x,z están escaladas por: "<< new_scale <<"\n";
+    std::cout << "La coordenada y está escalada por: " << new_scale << "\n";
 }

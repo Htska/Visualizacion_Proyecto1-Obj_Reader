@@ -21,6 +21,15 @@ private:
     Function* m_f;
     float m_min{};
     float m_max{};
+    /**
+     * @brief valor por el cual se va a escalar el modelo de la malla
+     */
+    float m_scale{};
+
+    /**
+     * @brief flotante para calcular la escala de la matriz del modelor
+     */
+    float m_model_scale{};
 
     struct Vertex
     {
@@ -55,11 +64,13 @@ private:
 
 public: 
 
-    Grid(ShaderProgram* program, int width, int depth, Function* f) 
+    Grid(ShaderProgram* program, int width, int depth, Function* f, float scale,float model_scale) 
         : Model(program)
         , m_width{width}
         , m_depth{depth}
         , m_f{f}
+        , m_scale{scale}
+        , m_model_scale{model_scale}
     {
         CreateTriangleList();
     }
